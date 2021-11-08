@@ -9,10 +9,11 @@
         Description text
     """,
     'data': [
+        'data/activity.xml',
         'security/account_approval_security.xml',
         'security/ir.model.access.csv',
+        'views/account_menuitem_inherited.xml',
         'views/account_approval_request_inherited_tree.xml',
-        'data/activity.xml'
     ],
 
 }

@@ -11,6 +11,7 @@
 					<button string="Request Validation" states="open" type="object" name="button_approbation" class="oe_highlight"/>
 					<button string="Confirm" states="to_approve" class="oe_highlight" name="button_post" type="object" groups="account_approval.group_account_approver"/>
 					<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver"/>
+					<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver"/>
 				</xpath>
 				<xpath expr="//field[@name='state']" position="replace">
 					<field name="state" widget="statusbar" statusbar_visible="open,to_approve,posted,confirm"/>
