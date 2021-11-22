@@ -11,7 +11,7 @@ class AccountBankStatement(models.Model):
     @api.model
     def _default_employee_id(self):
         employee = self.env.user.employee_id
-        if not employee and not self.env.user.has_group('hr_expense.group_hr_expense_team_approver'):
+        if not employee and not self.env.user.has_group('hr.group_hr_user'):
             raise ValidationError(_('The current user has no related employee. Please, create one.'))
         return employee
 
@@ -19,7 +19,7 @@ class AccountBankStatement(models.Model):
 
     state = fields.Selection(selection_add=[("to_approve", "Approbation"), ('posted',)], ondelete={'to_approve':'set default'})  # noqa: E501
  
-    user_sbu_id = fields.Many2one('res.users', 'Manager', compute='_compute_from_employee_id', store=True, readonly=True, copy=False, tracking=True)  # noqa: E501
+    user_id = fields.Many2one('res.users', 'Manager', compute='_compute_from_employee_id', store=True, readonly=True, copy=False, tracking=True)  # noqa: E501
 
     @api.depends('company_id')
     def _compute_employee_id(self):
@@ -30,7 +30,7 @@ class AccountBankStatement(models.Model):
     @api.depends('employee_id')
     def _compute_from_employee_id(self):
         for sheet in self:
-            sheet.user_sbu_id = sheet.employee_id.parent_id.user_id
+            sheet.user_id = sheet.employee_id.parent_id.user_id
 
     def button_approbation(self):
         ''' Move the bank statements from 'draft' to 'posted'. '''
@@ -51,12 +51,12 @@ class AccountBankStatement(models.Model):
             lines_of_moves_to_post.move_id._post(soft=False)
 
     def _get_responsible_for_approval(self):
-        if self.user_sbu_id:
-            return self.user_sbu_id
-        elif self.employee_id.parent_id.user_sbu_id:
-            return self.employee_id.parent_id.user_sbu_id
-        elif self.employee_id.department_id.manager_id.user_sbu_id:
-            return self.employee_id.department_id.manager_id.user_sbu_id
+        if self.user_id:
+            return self.user_id
+        elif self.employee_id.parent_id.user_id:
+            return self.employee_id.parent_id.user_id
+        elif self.employee_id.department_id.manager_id.user_id:
+            return self.employee_id.department_id.manager_id.user_id
         return self.env['res.users']
     
     def activity_update(self):
