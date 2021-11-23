@@ -15,7 +15,7 @@ class AccountBankStatement(models.Model):
             raise ValidationError(_('The current user has no related employee. Please, create one.'))
         return employee
 
-    employee_id = fields.Many2one('hr.employee', compute='_compute_employee_id', string="Employee", store=True, required=True, readonly=True, tracking=True, default=_default_employee_id)  # noqa: E501
+    employee_id = fields.Many2one('hr.employee', compute='_compute_employee_id', string="Employee", store=True, readonly=True, tracking=True, default=_default_employee_id)  # noqa: E501
 
     state = fields.Selection(selection_add=[("to_approve", "Approbation"), ('posted',)], ondelete={'to_approve':'set default'})  # noqa: E501
  
