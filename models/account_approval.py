@@ -59,9 +59,9 @@ class AccountBankStatement(models.Model):
             return self.employee_id.department_id.manager_id.user_id
         return self.env['res.users']
     
-    # def activity_update(self):
-    #     for bank_statement in self.filtered(lambda hol: hol.state == 'to_approve'):  # noqa: E501
-    #         self.activity_schedule('approvals_statements.mail_activity_approval', user_id=bank_statement.sudo()._get_responsible_for_approval().id, note='Please approve statement')  # noqa: E501
+    def activity_update(self):
+        for bank_statement in self.filtered(lambda hol: hol.state == 'to_approve'):  # noqa: E501
+            self.activity_schedule('approvals_statements.mail_activity_approval', user_id=bank_statement.sudo()._get_responsible_for_approval().id, note='Please approve statement')  # noqa: E501
 
     def button_post(self):
         self.write({'state': 'posted'})
