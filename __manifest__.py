@@ -9,7 +9,7 @@
         Description text
     """,
     'data': [
-        # 'data/activity.xml',
+        'data/activity.xml',
         'security/account_approval_security.xml',
         'security/ir.model.access.csv',
         'views/account_menuitem_inherited.xml',
