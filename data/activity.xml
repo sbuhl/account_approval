@@ -3,7 +3,7 @@
 	<data noupdate="1">
         <record id="mail_activity_approval" model="mail.activity.type">
             <field name="name">Statement</field>
-            <field name="res_model_id" ref="model_account_bank_statement"/>
+            
         </record>
     </data>
 </odoo>
