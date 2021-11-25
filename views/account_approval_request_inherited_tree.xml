@@ -7,46 +7,48 @@
 			<field name="inherit_id" ref="account.view_bank_statement_form"/>
 			<field name="arch" type="xml">
 
-				<xpath expr="//button[@name='button_post']" position="replace" >
-					<button string="Request Validation" states="open" type="object" name="button_approbation" class="oe_highlight"/>
-					<button string="Confirm" states="to_approve" class="oe_highlight" name="button_post" type="object" groups="account_approval.group_account_approver"/>
-					<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver"/>
-					<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver"/>
-				</xpath>
-				<xpath expr="//field[@name='state']" position="replace">
-					<field name="state" widget="statusbar" statusbar_visible="open,to_approve,posted,confirm"/>
-				</xpath>
-				<xpath expr="//field[@name='message_follower_ids']" position="after">
-					<field name="activity_ids" widget="mail_activity"/>
-				</xpath>
+			<xpath expr="//button[@name='button_post']" position="replace" >
+				<button string="Request Validation" states="open" type="object" name="button_approbation" class="oe_highlight"/>
+				<button string="Confirm" states="to_approve" class="oe_highlight" name="button_post" type="object" groups="account_approval.group_account_approver"/>
+				<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver"/>
+			</xpath>
+			<xpath expr="//field[@name='state']" position="replace">
+				<field name="state" widget="statusbar" statusbar_visible="open,to_approve,posted,confirm"/>
+			</xpath>
+			<xpath expr="//field[@name='message_follower_ids']" position="after">
+				<field name="activity_ids" widget="mail_activity"/>
+			</xpath>
 
-				<xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='statement_line_ids']/field[@name='line_ids']/tree[1]/field[@name='amount']" position="after">
-					<button name="action_get_attachment_view" type="object" icon="fa-paperclip" aria-label="View Attachments" title="View Attachments" class="float-right pr-0"/>
-					<field name="attachment_number" class="text-left pl-0" nolabel="1"/>
-				</xpath>
+			<xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='statement_line_ids']/field[@name='line_ids']/tree[1]/field[@name='amount']" position="after">
+				<button name="action_get_attachment_view" type="object" icon="fa-paperclip" aria-label="View Attachments" title="View Attachments" class="float-right pr-0"/>
+				<field name="attachment_number" class="text-left pl-0" nolabel="1"/>
+			</xpath>
 
-				<xpath expr="//button[@name='action_bank_reconcile_bank_statements']" position="replace" >
-					<button string="Reconcile" class="oe_highlight"
-						name="action_bank_reconcile_bank_statements" type="object" groups="account.group_account_user"
-						attrs="{'invisible': ['|', '|', ('all_lines_reconciled', '=', True), ('line_ids', '=', []), ('state', '!=', 'posted')]}"/>
+			<xpath expr="//button[@name='action_bank_reconcile_bank_statements']" position="replace" >
+				<button string="Reconcile" class="oe_highlight"
+					name="action_bank_reconcile_bank_statements" type="object" groups="account_approval.group_account_approver"
+					attrs="{'invisible': ['|', '|', ('all_lines_reconciled', '=', True), ('line_ids', '=', []), ('state', '!=', 'posted')]}"/>
 
-					</xpath>
-					<xpath expr="//button[@name='button_reopen']" position="replace" >
-						<button string="Reset to New"
-							name="button_reopen" type="object" groups="account.group_account_user"
-							attrs="{'invisible': [('state', '!=', 'posted')]}"/>
-						</xpath>
+			</xpath>
+			<xpath expr="//button[@name='button_reopen']" position="replace" >
+				<button string="Reset to New"
+					name="button_reopen" type="object" groups="account.group_account_user"
+					attrs="{'invisible': [('state', '!=', 'posted')]}"/>
+			</xpath>
 
-						<xpath expr="//button[@name='button_undo_reconciliation']" position="replace" >
-							<button name="button_undo_reconciliation" type="object"
-								attrs="{'invisible': [('is_reconciled', '=', False)], 'column_invisible': [('parent.state', '!=', 'posted')]}"
-								string="Revert reconciliation" groups="account.group_account_user" icon="fa-undo"/>
-							</xpath>
+			<xpath expr="//button[@name='button_undo_reconciliation']" position="replace" >
+				<button name="button_undo_reconciliation" type="object"
+					attrs="{'invisible': [('is_reconciled', '=', False)], 'column_invisible': [('parent.state', '!=', 'posted')]}"
+					string="Revert reconciliation" groups="account.group_account_user" icon="fa-undo"/>
+			</xpath>
+			<xpath expr="//field[@name='balance_end']" position="after">
+				<field name="difference"/>
+			</xpath>
+
+			</field>
+			
+		</record>
 
 
-						</field>
-					</record>
-
-
-				</data>
-			</odoo>
+	</data>
+</odoo>
