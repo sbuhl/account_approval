@@ -9,8 +9,8 @@
 
 				<xpath expr="//button[@name='button_post']" position="replace" >
 					<button string="Request Validation" states="open" type="object" name="button_approbation" class="oe_highlight"/>
-					<button string="Confirm" states="to_approve" class="oe_highlight" name="button_post" type="object" groups="account_approval.group_account_approver"/>
-					<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver"/>
+					<button string="Confirm" states="to_approve" class="oe_highlight" name="button_post" type="object" groups="account_approval.group_account_approver, account.group_account_manager"/>
+					<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver, account.group_account_manager"/>
 				</xpath>
 				<xpath expr="//field[@name='state']" position="replace">
 					<field name="state" widget="statusbar" statusbar_visible="open,to_approve,posted,confirm"/>
@@ -38,7 +38,7 @@
 
 				<xpath expr="//button[@name='action_bank_reconcile_bank_statements']" position="replace" >
 					<button string="Reconcile" class="oe_highlight"
-						name="action_bank_reconcile_bank_statements" type="object" groups="account_approval.group_account_approver"
+						name="action_bank_reconcile_bank_statements" type="object" groups="account_approval.group_account_approver, account.group_account_manager"
 						attrs="{'invisible': ['|', '|', ('all_lines_reconciled', '=', True), ('line_ids', '=', []), ('state', '!=', 'posted')]}"/>
 
 					</xpath>

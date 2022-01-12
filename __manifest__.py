@@ -10,7 +10,7 @@
     'license': 'LGPL-3',
 
     'application': True,
-    'category': 'Category',
+    'category': 'Customizations',
     'summary': 'Statements Approvals',
     'description': """
         Add an approval step on the bank statement
