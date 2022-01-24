@@ -24,6 +24,31 @@
 					<field name="attachment_number" class="text-left pl-0" nolabel="1"/>
 				</xpath>
 
+				<xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+					<group name="commptes_ohada" string="Comptes Ohada" attrs="{&quot;invisible&quot;: [&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,[&quot;journal_id&quot;,&quot;!=&quot;,38],[&quot;journal_id&quot;,&quot;!=&quot;,39],[&quot;journal_id&quot;,&quot;!=&quot;,42],[&quot;journal_id&quot;,&quot;!=&quot;,40],[&quot;journal_id&quot;,&quot;!=&quot;,41],[&quot;journal_id&quot;,&quot;!=&quot;,24],[&quot;journal_id&quot;,&quot;!=&quot;,51],[&quot;journal_id&quot;,&quot;!=&quot;,7]]}">
+						<div class="text-muted" style="-webkit-column-count: 2;
+							-moz-column-count: 2;
+							column-count: 2;
+
+							-webkit-column-gap: 20px;
+							-moz-column-gap: 20px;
+							column-gap: 20px;">
+							<p style="margin-bottom:0">614010 Transport du Personnel (Taxi Moto)</p>
+							<p style="margin-bottom:0">618100 Voyages et déplacements (séjour)</p>
+							<p style="margin-bottom:0">612010 Ttransports sur Ventes (Goma vers client)</p>
+							<p style="margin-bottom:0">618200 Transports entre établissements ou chantiers</p>
+							<p style="margin-bottom:0">618210 Transport Goma- Bukavu</p>
+							<p style="margin-bottom:0">618220 Transport Goma- Bunia</p>
+							<p style="margin-bottom:0">618230 Transport Goma- Kinshasa</p>
+							<p style="margin-bottom:0">618240 Transport Goma- Lubumbashi</p>
+							<p style="margin-bottom:0">628100 Frais de téléphone (Unités)</p>
+							<p style="margin-bottom:0">605710 Service (Main d'oeuvre temporaire)</p>
+							<p style="margin-bottom:0">624100 Entretien et réparations des biens immobiliers</p>
+						</div>    
+					</group>
+
+				</xpath>
+
 				<xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
 					<page string="Fonctionnement" name="caisse_fonctionnement">
 						<group>
@@ -34,7 +59,7 @@
 						</group>
 					</page>
 				</xpath>
-				
+
 
 				<xpath expr="//button[@name='action_bank_reconcile_bank_statements']" position="replace" >
 					<button string="Reconcile" class="oe_highlight"
