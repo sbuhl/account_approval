@@ -3,7 +3,6 @@
 	<data noupdate="1">
         <record id="mail_activity_approval" model="mail.activity.type">
             <field name="name">Statement</field>
-            
         </record>
     </data>
 </odoo>

@@ -11,6 +11,4 @@
         <field name="implied_ids" eval="[(4, ref('group_account_cashier'))]"/>
         <field name="category_id" ref="base.module_category_accounting_accounting"/>
     </record>
-
-
 </odoo>
