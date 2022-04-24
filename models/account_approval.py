@@ -17,8 +17,8 @@ class AccountBankStatement(models.Model):
 
     employee_id = fields.Many2one('hr.employee', compute='_compute_employee_id', string="Employee", store=True, readonly=True, tracking=True, default=_default_employee_id)  # noqa: E501
 
-    state = fields.Selection(selection_add=[("to_approve", "Approbation"), ('posted',)], ondelete={'to_approve':'set default'})  # noqa: E501
- 
+    state = fields.Selection(selection_add=[("to_approve", "Approbation"), ('posted',)], ondelete={'to_approve': 'set default'})  # noqa: E501
+
     user_id = fields.Many2one('res.users', 'Manager', compute='_compute_from_employee_id', store=True, readonly=True, copy=False, tracking=True)  # noqa: E501
 
     @api.depends('company_id')
@@ -58,7 +58,7 @@ class AccountBankStatement(models.Model):
         elif self.employee_id.department_id.manager_id.user_id:
             return self.employee_id.department_id.manager_id.user_id
         return self.env['res.users']
-    
+
     def activity_update(self):
         for bank_statement in self.filtered(lambda hol: hol.state == 'to_approve'):  # noqa: E501
             self.activity_schedule('approvals_statements.mail_activity_approval', user_id=bank_statement.sudo()._get_responsible_for_approval().id, note='Please approve statement')  # noqa: E501
@@ -81,13 +81,9 @@ class AccountBankStatementLine(models.Model):
         res['domain'] = [('res_model', '=', 'account.bank.statement.line'), ('res_id', 'in', self.ids)]  # noqa: E501
         res['context'] = {'default_res_model': 'account.bank.statement.line', 'default_res_id': self.id}  # noqa: E501
         return res
-        
+
     def _compute_attachment_number(self):
         attachment_data = self.env['ir.attachment'].read_group([('res_model', '=', 'account.bank.statement.line'), ('res_id', 'in', self.ids)], ['res_id'], ['res_id'])  # noqa: E501
         attachment = dict((data['res_id'], data['res_id_count']) for data in attachment_data)  # noqa: E501
         for expense in self:
             expense.attachment_number = attachment.get(expense._origin.id, 0)
-
-    
-
-    

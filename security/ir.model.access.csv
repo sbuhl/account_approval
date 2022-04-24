@@ -5,5 +5,3 @@ access_account_bank_statement_group_readonly,account.bank.statement.group.invoic
 access_account_bank_statement_group_invoice,account.bank.statement.group.invoice,model_account_bank_statement,group_account_cashier,1,0,0,0
 access_account_bank_statement_line_group_readonly,account.bank.statement.line.group.invoice,model_account_bank_statement_line,group_account_cashier,1,0,0,0
 access_account_bank_statement_line_group_invoice,account.bank.statement.line.group.invoice,model_account_bank_statement_line,group_account_cashier,1,0,0,0
-
-

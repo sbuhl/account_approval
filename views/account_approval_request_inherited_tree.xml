@@ -44,7 +44,7 @@
 							<p style="margin-bottom:0">628100 Frais de téléphone (Unités)</p>
 							<p style="margin-bottom:0">605710 Service (Main d'oeuvre temporaire)</p>
 							<p style="margin-bottom:0">624100 Entretien et réparations des biens immobiliers</p>
-						</div>    
+						</div>
 					</group>
 
 				</xpath>
@@ -55,7 +55,7 @@
 							<group style="text-muted">
 								<p><strong>Caissier</strong> - Encoder les mouvements du jour et les accompagner d'un ou plusieurs document justificatif de la dépense. Après avoir demandé l'approbation du resonsable, le caissier peut modifier sa caisse. </p>
 								<p><strong>Responsable Magasin</strong> - Valider les différents mouvements. Il peut demander une modification ou refuser l'un ou l'autre mouvement.</p>
-							</group>	
+							</group>
 						</group>
 					</page>
 				</xpath>
@@ -82,10 +82,7 @@
 								<field name="difference"/>
 							</xpath>
 
-						</field>
-
-					</record>
-
-
-				</data>
-			</odoo>
+			</field>
+		</record>
+	</data>
+</odoo>
