@@ -6,24 +6,6 @@
 			<field name="model">account.bank.statement</field>
 			<field name="inherit_id" ref="account.view_bank_statement_form"/>
 			<field name="arch" type="xml">
-
-				<xpath expr="//button[@name='button_post']" position="replace" >
-					<button string="Request Validation" states="open" type="object" name="button_approbation" class="oe_highlight"/>
-					<button string="Confirm" states="to_approve" class="oe_highlight" name="button_post" type="object" groups="account_approval.group_account_approver, account.group_account_manager"/>
-					<button string="Refuse" states="to_approve" class="oe_highlight" name="action_cancel" type="object" groups="account_approval.group_account_approver, account.group_account_manager"/>
-				</xpath>
-				<xpath expr="//field[@name='state']" position="replace">
-					<field name="state" widget="statusbar" statusbar_visible="open,to_approve,posted,confirm"/>
-				</xpath>
-				<xpath expr="//field[@name='message_follower_ids']" position="after">
-					<field name="activity_ids" widget="mail_activity"/>
-				</xpath>
-
-				<xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='statement_line_ids']/field[@name='line_ids']/tree[1]/field[@name='amount']" position="after">
-					<button name="action_get_attachment_view" type="object" icon="fa-paperclip" aria-label="View Attachments" title="View Attachments" class="float-right pr-0"/>
-					<field name="attachment_number" class="text-left pl-0" nolabel="1"/>
-				</xpath>
-
 				<xpath expr="//form[1]/sheet[1]/group[1]" position="after">
 					<group name="commptes_ohada" string="Comptes Ohada" attrs="{&quot;invisible&quot;: [&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,[&quot;journal_id&quot;,&quot;!=&quot;,38],[&quot;journal_id&quot;,&quot;!=&quot;,39],[&quot;journal_id&quot;,&quot;!=&quot;,42],[&quot;journal_id&quot;,&quot;!=&quot;,40],[&quot;journal_id&quot;,&quot;!=&quot;,41],[&quot;journal_id&quot;,&quot;!=&quot;,24],[&quot;journal_id&quot;,&quot;!=&quot;,51],[&quot;journal_id&quot;,&quot;!=&quot;,7]]}">
 						<div class="text-muted" style="-webkit-column-count: 2;
@@ -46,42 +28,7 @@
 							<p style="margin-bottom:0">624100 Entretien et réparations des biens immobiliers</p>
 						</div>
 					</group>
-
 				</xpath>
-
-				<xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
-					<page string="Fonctionnement" name="caisse_fonctionnement">
-						<group>
-							<group style="text-muted">
-								<p><strong>Caissier</strong> - Encoder les mouvements du jour et les accompagner d'un ou plusieurs document justificatif de la dépense. Après avoir demandé l'approbation du resonsable, le caissier peut modifier sa caisse. </p>
-								<p><strong>Responsable Magasin</strong> - Valider les différents mouvements. Il peut demander une modification ou refuser l'un ou l'autre mouvement.</p>
-							</group>
-						</group>
-					</page>
-				</xpath>
-
-
-				<xpath expr="//button[@name='action_bank_reconcile_bank_statements']" position="replace" >
-					<button string="Reconcile" class="oe_highlight"
-						name="action_bank_reconcile_bank_statements" type="object" groups="account_approval.group_account_approver, account.group_account_manager"
-						attrs="{'invisible': ['|', '|', ('all_lines_reconciled', '=', True), ('line_ids', '=', []), ('state', '!=', 'posted')]}"/>
-
-					</xpath>
-					<xpath expr="//button[@name='button_reopen']" position="replace" >
-						<button string="Reset to New"
-							name="button_reopen" type="object" groups="account.group_account_user"
-							attrs="{'invisible': [('state', '!=', 'posted')]}"/>
-						</xpath>
-
-						<xpath expr="//button[@name='button_undo_reconciliation']" position="replace" >
-							<button name="button_undo_reconciliation" type="object"
-								attrs="{'invisible': [('is_reconciled', '=', False)], 'column_invisible': [('parent.state', '!=', 'posted')]}"
-								string="Revert reconciliation" groups="account.group_account_user" icon="fa-undo"/>
-							</xpath>
-							<xpath expr="//field[@name='balance_end']" position="after">
-								<field name="difference"/>
-							</xpath>
-
 			</field>
 		</record>
 	</data>
