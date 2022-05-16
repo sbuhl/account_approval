@@ -2,7 +2,7 @@
 
 {
     'name': "Approvals Statement",
-    'version': '1.1',
+    'version': '1.2',
     'depends': ['account_accountant'],
     'author': "Sebastien Buhl",
     'website': "http://www.buhl.be",
@@ -15,6 +15,8 @@
     """,
     'data': [
         'data/activity.xml',
+        'security/account_approval_security.xml',
+        'security/ir.model.access.csv',
         'views/account_approval_request_inherited_tree.xml',
     ],
 }
