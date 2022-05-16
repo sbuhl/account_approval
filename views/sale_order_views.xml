@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_order_form_account_approval_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.account.approval</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='before'>
+					<!-- This field is defined in `sale_stock` module -->
+                    <field name="product_type" invisible="1"/>
+                </xpath>
+				<xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='attributes'>
+					<attribute name="attrs">{
+						'readonly': [
+							'|',
+							('product_type', 'in', ['consu', 'product']),
+							('qty_invoiced', '&gt;', 0),
+						]}
+					</attribute>
+				</xpath>
+            </field>
+        </record>
+
+		<!-- Discount Settings Records -->
+		<record id="view_discount_settings_form" model="ir.ui.view">
+            <field name="name">discount.settings.form</field>
+            <field name="model">discount.settings</field>
+            <field name="arch" type="xml">
+                <form string="Discount Settings">
+                    <sheet>
+                        <div>
+                            <group>
+                                <field name="name"/>
+                                <field name="max_amount"/>
+                            </group>
+                        </div>
+                        <div>
+                            <group>
+                                <field name="group_ids" widget="many2many_tags"/>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+		<record id="view_discount_settings_tree" model="ir.ui.view">
+            <field name="name">discount.settings.tree</field>
+            <field name="model">discount.settings</field>
+            <field name="arch" type="xml">
+                <tree string="Discount Settings">
+                    <field name="name"/>
+                    <field name="max_amount"/>
+                    <field name="group_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+		<record id="discount_settings_action" model="ir.actions.act_window">
+			<field name="name">Discount Settings</field>
+			<field name="res_model">discount.settings</field>
+			<field name="view_id" ref="account_approval.view_discount_settings_tree"/>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem
+            id="menu_discount_settings"
+            name="Discount Settings"
+            parent="sale.menu_sales_config"
+            action="account_approval.discount_settings_action"
+            sequence="2"/>
+
+	</data>
+</odoo>

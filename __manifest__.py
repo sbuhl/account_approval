@@ -3,7 +3,7 @@
 {
     'name': "Approvals Statement",
     'version': '1.3',
-    'depends': ['account_accountant'],
+    'depends': ['account_accountant', 'sale_stock'],
     'author': "Sebastien Buhl",
     'website': "http://www.buhl.be",
     'license': 'LGPL-3',
@@ -18,7 +18,10 @@
     """,
     'data': [
         'data/activity.xml',
+        'data/discount_settings.xml',
         'views/account_approval_request_inherited_tree.xml',
+        'views/sale_order_views.xml',
+        'security/ir.model.access.csv',
         'security/security.xml',
     ],
 }
