@@ -29,6 +29,9 @@
 						</div>
 					</group>
 				</xpath>
+				<xpath expr="//field[@name='balance_end']" position="after">
+					<field name="difference"/>
+				</xpath>
 			</field>
 		</record>
 	</data>
