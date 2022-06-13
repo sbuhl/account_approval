@@ -7,17 +7,16 @@
 			<field name="inherit_id" ref="account.view_bank_statement_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="//form[1]/sheet[1]/group[1]" position="after">
-					<group name="commptes_ohada" string="Comptes Ohada" attrs="{&quot;invisible&quot;: [&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,&quot;&amp;&quot;,[&quot;journal_id&quot;,&quot;!=&quot;,38],[&quot;journal_id&quot;,&quot;!=&quot;,39],[&quot;journal_id&quot;,&quot;!=&quot;,42],[&quot;journal_id&quot;,&quot;!=&quot;,40],[&quot;journal_id&quot;,&quot;!=&quot;,41],[&quot;journal_id&quot;,&quot;!=&quot;,24],[&quot;journal_id&quot;,&quot;!=&quot;,51],[&quot;journal_id&quot;,&quot;!=&quot;,7]]}">
+					<group name="commptes_ohada" string="Comptes Ohada" attrs="{'invisible': ['|','|','|','|','|','|','|',['journal_id','!=',38],['journal_id','!=',39],['journal_id','!=',42],['journal_id','!=',40],['journal_id','!=',41],['journal_id','!=',24],['journal_id','!=',51],['journal_id','!=',7]]}">
 						<div class="text-muted" style="-webkit-column-count: 2;
 							-moz-column-count: 2;
 							column-count: 2;
-
 							-webkit-column-gap: 20px;
 							-moz-column-gap: 20px;
 							column-gap: 20px;">
 							<p style="margin-bottom:0">614010 Transport du Personnel (Taxi Moto)</p>
 							<p style="margin-bottom:0">618100 Voyages et déplacements (séjour)</p>
-							<p style="margin-bottom:0">612010 Ttransports sur Ventes (Goma vers client)</p>
+							<p style="margin-bottom:0">612010 Transports sur Ventes (Goma vers client)</p>
 							<p style="margin-bottom:0">618200 Transports entre établissements ou chantiers</p>
 							<p style="margin-bottom:0">618210 Transport Goma- Bukavu</p>
 							<p style="margin-bottom:0">618220 Transport Goma- Bunia</p>
@@ -32,6 +31,9 @@
 				<xpath expr="//field[@name='balance_end']" position="after">
 					<field name="difference"/>
 				</xpath>
+				<xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="approved_by" optional="show" options="{'no_open':true,'no_create':true}" domain="[('groups_id','=','Store Manager')]"/>
+                </xpath>
 			</field>
 		</record>
 	</data>
