@@ -11,13 +11,12 @@
 						<div class="text-muted" style="-webkit-column-count: 2;
 							-moz-column-count: 2;
 							column-count: 2;
-
 							-webkit-column-gap: 20px;
 							-moz-column-gap: 20px;
 							column-gap: 20px;">
 							<p style="margin-bottom:0">614010 Transport du Personnel (Taxi Moto)</p>
 							<p style="margin-bottom:0">618100 Voyages et déplacements (séjour)</p>
-							<p style="margin-bottom:0">612010 Ttransports sur Ventes (Goma vers client)</p>
+							<p style="margin-bottom:0">612010 Transports sur Ventes (Goma vers client)</p>
 							<p style="margin-bottom:0">618200 Transports entre établissements ou chantiers</p>
 							<p style="margin-bottom:0">618210 Transport Goma- Bukavu</p>
 							<p style="margin-bottom:0">618220 Transport Goma- Bunia</p>
@@ -32,6 +31,16 @@
 				<xpath expr="//field[@name='balance_end']" position="after">
 					<field name="difference"/>
 				</xpath>
+			</field>
+		</record>
+		<record id="account_approved_by_xml" model="ir.ui.view">
+			<field name="name">account.view.bank.statement.form.inherit.approved</field>
+			<field name="model">account.bank.statement</field>
+			<field name="inherit_id" ref="account.view_bank_statement_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="approved_by" optional="show" options="{&quot;no_open&quot;:true,&quot;no_create&quot;:true}"/>
+                </xpath>
 			</field>
 		</record>
 	</data>
