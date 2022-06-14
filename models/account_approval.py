@@ -6,4 +6,4 @@ from odoo import fields, models
 class AccountBankStatementLine(models.Model):
     _inherit = "account.bank.statement.line"
 
-    approved_by = fields.Many2one('res.users', string='Approved by')
+    approved_by = fields.Many2one('res.users', string='Approved by', domain="[('category_id', 'ilike', 'Manager')]")
