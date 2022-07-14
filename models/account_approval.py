@@ -9,7 +9,6 @@ class AccountBankStatementLine(models.Model):
 
     approved_by = fields.Many2one('res.users', string='Approved by')
 
-
 class DiscountSettings(models.Model):
     _name = 'discount.settings'
     _description = 'Discount Settings'
