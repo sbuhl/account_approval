@@ -32,7 +32,7 @@
 					<field name="difference"/>
 				</xpath>
 				<xpath expr="//field[@name='partner_id']" position="after">
-            <field name="approved_by" optional="show" domain="[('groups_id','=','Store Manager')]"/>
+            <field name="approved_by" optional="show" domain="[('groups_id.name','=','Store Manager')]"/>
         </xpath>
 			</field>
 		</record>
