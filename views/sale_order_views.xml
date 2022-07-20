@@ -10,7 +10,7 @@
 					<!-- This field is defined in `sale_stock` module -->
                     <field name="product_type" invisible="1"/>
                 </xpath>
-				<xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='attributes'>
+				<!-- <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='attributes'>
 					<attribute name="attrs">{
 						'readonly': [
 							'|',
@@ -18,7 +18,7 @@
 							('qty_invoiced', '&gt;', 0),
 						]}
 					</attribute>
-				</xpath>
+				</xpath> -->
             </field>
         </record>
 
