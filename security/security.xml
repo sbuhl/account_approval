@@ -6,6 +6,11 @@
         <field name="sequence">8</field>
     </record>
 
+    <record id="group_so_price_modification" model="res.groups">
+        <field name="name">Price Modification (Sale Order)</field>
+        <field name="category_id" ref="base.module_category_usability"/>
+    </record>
+
     <record id="group_sales_level_junior" model="res.groups">
         <field name="name">Junior</field>
         <field name="category_id" ref="module_category_salesperson_level"/>
@@ -23,7 +28,7 @@
     <record id="group_sales_level_manager" model="res.groups">
         <field name="name">Store Manager</field>
         <field name="category_id" ref="module_category_salesperson_level"/>
-        <field name="implied_ids" eval="[(4,ref('group_sales_level_advanced'))]"/>
+        <field name="implied_ids" eval="[Command.link(ref('group_sales_level_advanced')), Command.link(ref('group_so_price_modification'))]"/>
     </record>
     <record id="group_sales_level_director" model="res.groups">
         <field name="name">Director</field>

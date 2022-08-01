@@ -7,18 +7,11 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='before'>
-					<!-- This field is defined in `sale_stock` module -->
-                    <field name="product_type" invisible="1"/>
+                    <field name="can_edit_price_unit" invisible="1"/>
                 </xpath>
-				<!-- <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='attributes'>
-					<attribute name="attrs">{
-						'readonly': [
-							'|',
-							('product_type', 'in', ['consu', 'product']),
-							('qty_invoiced', '&gt;', 0),
-						]}
-					</attribute>
-				</xpath> -->
+				<xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='attributes'>
+					<attribute name="attrs">{'readonly': [('can_edit_price_unit', '=', False)]}</attribute>
+				</xpath>
             </field>
         </record>
 
