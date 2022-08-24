@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -8,6 +8,7 @@ class AccountBankStatementLine(models.Model):
     _inherit = "account.bank.statement.line"
 
     approved_by = fields.Many2one('res.users', string='Approved by')
+
 
 class DiscountSettings(models.Model):
     _name = 'discount.settings'
@@ -20,6 +21,18 @@ class DiscountSettings(models.Model):
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
+
+    can_edit_price_unit = fields.Boolean(compute='_compute_can_edit_price_unit')
+
+    @api.depends_context('uid')
+    @api.depends('product_type')
+    def _compute_can_edit_price_unit(self):
+        if self.env.user.has_group('account_approval.group_so_price_modification'):
+            self.can_edit_price_unit = True
+        else:
+            service_lines = self.filtered(lambda line: line.product_type == 'service')
+            service_lines.can_edit_price_unit = True
+            (self - service_lines).can_edit_price_unit = False
 
     @api.constrains('discount')
     def _check_max_allowed_discount(self):

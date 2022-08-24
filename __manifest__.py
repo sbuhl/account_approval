@@ -2,7 +2,7 @@
 
 {
     'name': "Approvals Statement",
-    'version': '1.3',
+    'version': '1.4',
     'depends': ['account_accountant', 'sale_stock'],
     'author': "Sebastien Buhl",
     'website': "http://www.buhl.be",
