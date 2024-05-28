@@ -2,6 +2,7 @@
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
+import re
 
 
 class AccountBankStatementLine(models.Model):
@@ -39,7 +40,11 @@ class SaleOrderLine(models.Model):
         if not self._context.get('bypass_max_discount_check'):
             max_discount = self._get_max_allowed_discount()
             for line in self:
+                dicount_num = float(re.findall(r'\d+\.?\d*', line.order_id.pricelist_id.item_ids.price)[0]) if line.order_id.pricelist_id.item_ids.price else False
                 if line.discount > max_discount:
+                    # Allow to validate any discount if the discount comes from a pricelist.
+                    if line.order_id.pricelist_id.item_ids.price  and dicount_num == line.discount:
+                        return
                     raise ValidationError("Vous ne pouvez pas appliquer une réduction supérieure à ce que votre niveau permet (%s%%). Demandez à votre manager pour accorder une réduction supérieure." % max_discount)
 
     @api.model
