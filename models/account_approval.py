@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
+_logger = logging.getLogger(__name__)
 
 class AccountBankStatementLine(models.Model):
     _inherit = "account.bank.statement.line"
@@ -36,10 +39,39 @@ class SaleOrderLine(models.Model):
 
     @api.constrains('discount')
     def _check_max_allowed_discount(self):
-        if not self._context.get('bypass_max_discount_check'):
-            max_discount = self._get_max_allowed_discount()
-            for line in self:
+        for line in self:
+            pricelist_item_name = line.pricelist_item_id.name if line.pricelist_item_id else 'None'
+            _logger.info('Checking discount for line: %s, Pricelist Item ID: %s, Pricelist Item Name: %s', line.id, line.pricelist_item_id.id if line.pricelist_item_id else 'None', pricelist_item_name)
+            if not self._context.get('bypass_max_discount_check'):
+                if line.pricelist_item_id:
+                    pricelist_item = line.pricelist_item_id
+                    compute_price = pricelist_item.compute_price
+                    _logger.info('Line %s: Pricelist compute_price type is %s.', line.id, compute_price)
+
+                    if compute_price == 'fixed':
+                        discounted_price = line.price_unit * (1 - line.discount / 100.0)
+                        _logger.info('Line %s: Calculated discounted price is %s.', line.id, discounted_price)
+                        if discounted_price < pricelist_item.fixed_price:
+                            _logger.warning('Line %s: Discounted price %s is less than fixed pricelist price %s.', line.id, discounted_price, pricelist_item.fixed_price)
+                            raise ValidationError("Vous ne pouvez pas appliquer une réduction qui rend le prix unitaire inférieur au prix fixe de la liste de prix (%s)." % pricelist_item.fixed_price)
+
+                    elif compute_price == 'percentage':
+                        pricelist_discounted_price = line.price_unit * (1 - pricelist_item.percent_price / 100.0)
+                        discounted_price = line.price_unit * (1 - line.discount / 100.0)
+                        _logger.info('Line %s: Calculated discounted price is %s with pricelist percentage discount of %s%%.', line.id, discounted_price, pricelist_item.percent_price)
+                        if line.discount > pricelist_item.percent_price or discounted_price < pricelist_discounted_price:
+                            _logger.warning('Line %s: Discount %s%% exceeds pricelist percentage discount %s%% or discounted price %s is less than pricelist discounted price %s.', line.id, line.discount, pricelist_item.percent_price, discounted_price, pricelist_discounted_price)
+                            raise ValidationError("Vous ne pouvez pas appliquer une réduction supérieure à la réduction en pourcentage de la liste de prix (%s%%)." % pricelist_item.percent_price)
+
+                    elif compute_price == 'formula':
+                        _logger.info('Line %s: Pricelist formula type is used. No validation applied for now.', line.id)
+                        # For 'formula' compute_price type, we leave it for now.
+                    continue
+                
+                max_discount = self._get_max_allowed_discount()
+                _logger.info('Line %s: Max allowed discount is %s%%. Current discount is %s%%.', line.id, max_discount, line.discount)
                 if line.discount > max_discount:
+                    _logger.warning('Line %s: Discount %s%% exceeds max allowed discount %s%%.', line.id, line.discount, max_discount)
                     raise ValidationError("Vous ne pouvez pas appliquer une réduction supérieure à ce que votre niveau permet (%s%%). Demandez à votre manager pour accorder une réduction supérieure." % max_discount)
 
     @api.model
