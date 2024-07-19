@@ -49,29 +49,29 @@ class SaleOrderLine(models.Model):
                     _logger.info('Line %s: Pricelist compute_price type is %s.', line.id, compute_price)
 
                     if compute_price == 'fixed':
-                        discounted_price = line.price_unit * (1 - line.discount / 100.0)
+                        discounted_price = line.price_unit * (1 - abs(line.discount) / 100.0)
                         _logger.info('Line %s: Calculated discounted price is %s.', line.id, discounted_price)
                         if discounted_price < pricelist_item.fixed_price:
                             _logger.warning('Line %s: Discounted price %s is less than fixed pricelist price %s.', line.id, discounted_price, pricelist_item.fixed_price)
                             raise ValidationError("Vous ne pouvez pas appliquer une réduction qui rend le prix unitaire inférieur au prix fixe de la liste de prix (%s)." % pricelist_item.fixed_price)
 
                     elif compute_price == 'percentage':
-                        pricelist_discounted_price = line.price_unit * (1 - pricelist_item.percent_price / 100.0)
-                        discounted_price = line.price_unit * (1 - line.discount / 100.0)
+                        pricelist_discounted_price = line.price_unit * (1 - abs(pricelist_item.percent_price) / 100.0)
+                        discounted_price = line.price_unit * (1 - abs(line.discount) / 100.0)
                         _logger.info('Line %s: Calculated discounted price is %s with pricelist percentage discount of %s%%.', line.id, discounted_price, pricelist_item.percent_price)
-                        if line.discount > pricelist_item.percent_price or discounted_price < pricelist_discounted_price:
-                            _logger.warning('Line %s: Discount %s%% exceeds pricelist percentage discount %s%% or discounted price %s is less than pricelist discounted price %s.', line.id, line.discount, pricelist_item.percent_price, discounted_price, pricelist_discounted_price)
+                        if abs(line.discount) > abs(pricelist_item.percent_price) or discounted_price < pricelist_discounted_price:
+                            _logger.warning('Line %s: Discount %s%% exceeds pricelist percentage discount %s%% or discounted price %s is less than pricelist discounted price %s.', line.id, abs(line.discount), abs(pricelist_item.percent_price), discounted_price, pricelist_discounted_price)
                             raise ValidationError("Vous ne pouvez pas appliquer une réduction supérieure à la réduction en pourcentage de la liste de prix (%s%%)." % pricelist_item.percent_price)
 
                     elif compute_price == 'formula':
                         _logger.info('Line %s: Pricelist formula type is used. No validation applied for now.', line.id)
                         # For 'formula' compute_price type, we leave it for now.
                     continue
-                
+
                 max_discount = self._get_max_allowed_discount()
                 _logger.info('Line %s: Max allowed discount is %s%%. Current discount is %s%%.', line.id, max_discount, line.discount)
-                if line.discount > max_discount:
-                    _logger.warning('Line %s: Discount %s%% exceeds max allowed discount %s%%.', line.id, line.discount, max_discount)
+                if abs(line.discount) > abs(max_discount):
+                    _logger.warning('Line %s: Discount %s%% exceeds max allowed discount %s%%.', line.id, abs(line.discount), abs(max_discount))
                     raise ValidationError("Vous ne pouvez pas appliquer une réduction supérieure à ce que votre niveau permet (%s%%). Demandez à votre manager pour accorder une réduction supérieure." % max_discount)
 
     @api.model
