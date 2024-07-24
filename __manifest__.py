@@ -21,7 +21,7 @@
         'security/security.xml',
         'data/activity.xml',
         'data/discount_settings.xml',
-        'views/account_approval_request_inherited_tree.xml',
+        #'views/account_approval_request_inherited_tree.xml',
         'views/sale_order_views.xml',
     ],
 }
