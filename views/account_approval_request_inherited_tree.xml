@@ -8,7 +8,7 @@
 		<!-- <record id="account_approval_request_inherited_tree" model="ir.ui.view">
 			<field name="name">account.view.bank.statement.form.inherit.approval</field>
 			<field name="model">bank.rec.widget</field>
-			<field name="inherit_id" ref="account_accountant.view_bank_rec_widget_form"/>
+			<field name="inherit_id" ref="account_accountant.view_bank_statement_line_search_bank_rec_widget"/>
 			<field name="arch" type="xml">
 				<xpath expr="//div[hasclass('o_bank_rec_stats_buttons')]" position="before">
 						<div class="text-muted" style="-webkit-column-count: 2;
