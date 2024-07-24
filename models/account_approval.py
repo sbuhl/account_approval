@@ -31,11 +31,11 @@ class SaleOrderLine(models.Model):
     @api.depends('product_type')
     def _compute_can_edit_price_unit(self):
         if self.env.user.has_group('account_approval.group_so_price_modification'):
-            self.can_edit_price_unit = True
+            self.can_edit_price_unit = False  # L'utilisateur PEUT modifier les prix
         else:
             service_lines = self.filtered(lambda line: line.product_type == 'service')
-            service_lines.can_edit_price_unit = True
-            (self - service_lines).can_edit_price_unit = False
+            service_lines.can_edit_price_unit = False #  L'utilisateur PEUT modifier les prix des services
+            (self - service_lines).can_edit_price_unit = True  # L'utilisateur peut modifier ces lignes
 
     @api.constrains('discount')
     def _check_max_allowed_discount(self):
