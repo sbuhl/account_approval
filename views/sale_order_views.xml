@@ -9,8 +9,8 @@
                 <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='before'>
                     <field name="can_edit_price_unit" invisible="1"/>
                 </xpath>
-				<xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='attributes'>
-					<attribute name="attrs">{'readonly': [('can_edit_price_unit', '=', False)]}</attribute>
+                <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='price_unit']" position='attributes'>
+                    <attribute name="readonly">can_edit_price_unit</attribute>
 				</xpath>
             </field>
         </record>

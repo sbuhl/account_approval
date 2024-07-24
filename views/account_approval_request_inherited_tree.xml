@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
-		<record id="account_approval_request_inherited_tree" model="ir.ui.view">
+        <!-- According to https://github.com/sbuhl/account_approval/pull/9#issuecomment-1538846201
+             this can be droped?
+             Worst case, we can add it back after upgrade, it's just visual helper.
+        -->
+		<!-- <record id="account_approval_request_inherited_tree" model="ir.ui.view">
 			<field name="name">account.view.bank.statement.form.inherit.approval</field>
 			<field name="model">bank.rec.widget</field>
-			<field name="inherit_id" ref="account_accountant.view_bank_rec_widget_form"/>
+			<field name="inherit_id" ref="account_accountant.view_bank_statement_line_search_bank_rec_widget"/>
 			<field name="arch" type="xml">
 				<xpath expr="//div[hasclass('o_bank_rec_stats_buttons')]" position="before">
-						<!-- attrs="{'invisible': ['|','|','|','|','|','|','|',['journal_id','!=',38],['journal_id','!=',39],['journal_id','!=',42],['journal_id','!=',40],['journal_id','!=',41],['journal_id','!=',24],['journal_id','!=',51],['journal_id','!=',7]]}" -->
 						<div class="text-muted" style="-webkit-column-count: 2;
 							-moz-column-count: 2;
 							column-count: 2;
@@ -30,15 +33,6 @@
 							<p style="margin-bottom:0">624100 Entretien et réparations des biens immobiliers</p>
 						</div>
 				</xpath>
-			</field>
-		</record>
-		<!--
-				<xpath expr="//field[@name='balance_end']" position="after">
-					<field name="difference"/>
-				</xpath>
-				<xpath expr="//field[@name='partner_id']" position="after">
-            <field name="approved_by" optional="show" domain="[('groups_id.name','=','Store Manager')]"/>
-        </xpath>
 			</field>
 		</record> -->
 	</data>
