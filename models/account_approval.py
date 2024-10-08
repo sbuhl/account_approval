@@ -42,6 +42,10 @@ class SaleOrderLine(models.Model):
         for line in self:
             pricelist_item_name = line.pricelist_item_id.name if line.pricelist_item_id else 'None'
             _logger.info('Checking discount for line: %s, Pricelist Item ID: %s, Pricelist Item Name: %s', line.id, line.pricelist_item_id.id if line.pricelist_item_id else 'None', pricelist_item_name)
+                
+            if self.env.is_admin():
+                continue  # Si admin, on saute toutes les vérifications
+
             if not self._context.get('bypass_max_discount_check'):
                 if line.pricelist_item_id:
                     pricelist_item = line.pricelist_item_id
